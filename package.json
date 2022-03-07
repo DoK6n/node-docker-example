@@ -1,0 +1,19 @@
+{
+  "name": "docker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:dkr": "docker build -t dok6n/nodejs ./",
+    "start:dkr": "docker run -d --name 'dok6n_nodejs' -p 5001:3000 -v /usr/src/app/node_modules -v $(pwd):/usr/src/app  dok6n/nodejs:latest",
+    "stop:dkr": "docker rm -f dok6n_nodejs",
+    "restart:dkr": "npm run stop:dkr && npm run start:dkr",
+    "build-start:dkr": "npm run build:dkr && npm run start:dkr"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
