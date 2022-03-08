@@ -1,24 +1,32 @@
 # docker-compose command
-  # start -> docker-compose up
-  # rebuild -> docker-compose up --build
+# start -> docker-compose up
+# rebuild -> docker-compose up --build
+# background start -> docker-compose up -d
+# docker-compose containers stop -> docker-compose down
 
-  # tap 위치 맞추기
+# tap 위치 맞추기
 
 # version: docker-compose version
-  # services: 실행하려는 컨테이너들 정의
-    # redis-server: container name
-      # container에서 사용하는 image
-    # node-app: container name
-      # build: current directory에 있는 Dockerfile 사용
-      # ports: port mapping -> local : container
+# services: 실행하려는 컨테이너들 정의
+# redis-server: container name
+# container에서 사용하는 image
+# node-app: container name
+# build: current directory에 있는 Dockerfile 사용
+# ports: port mapping -> local : container
+# volumes: :가 없는 경우는 해당 폴더 제외, :가 있는 경우는 사용
 
 #-----------------------------------------------------------------
 
-version: "3"
+version: '3'
 services:
   redis-server:
-    image: "redis"
+    image: 'redis'
   node-app:
     build: .
+    container_name: dok6n_nodejs
     ports:
-      - "5001:3000"
+      - '5001:3000'
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
